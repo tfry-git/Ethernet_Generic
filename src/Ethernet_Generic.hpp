@@ -537,7 +537,12 @@ class EthernetServer : public Server
     // KH
     virtual size_t _write(const uint8_t sockindex, const uint8_t *buf, size_t size);
     //////
-        
+
+#if defined(ESP32)
+// NOTE: work around: This overload to begin() is pure virtual in the ESP32 Server class
+    virtual void begin(uint16_t port) { begin(); };
+#endif
+
   public:
     EthernetServer(uint16_t port) : _port(port) { }
     
